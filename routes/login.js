@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
 var jwt = require('jsonwebtoken');
-
-const MOCK_USER = {
-  email: 'admin@admin.com',
-  password: '12345'
-}
+const { USER_CREDENTIALS_MOCK, MOCK_USER } = require('../mocks/user');
 
 router.post('/', async function (req, res) {
   try {
     const { email, password } = req.body;
-    if (MOCK_USER.email === email && MOCK_USER.password === password) {
+    if (USER_CREDENTIALS_MOCK.email === email && USER_CREDENTIALS_MOCK.password === password) {
       jwt.sign(
         { user: MOCK_USER },
         'lalocuranuncatuvomaestro',
