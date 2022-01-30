@@ -30,4 +30,28 @@ router.post('/', async function (req, res) {
   }
 });
 
+router.get('/', function (req, res) {
+  try {
+    const { token } = req.query;
+    jwt.verify(token, 'lalocuranuncatuvomaestro', async function (err, tokenDecoded) {
+      if (err) {
+        res.json({
+          message: 'error recuperando la sesión del usuario',
+          success: false,
+          user: {}
+        });
+        return;
+      }
+      console.log('tokenDecoded', tokenDecoded)
+      res.json({
+        message: 'sesión del usuario recuperada correctamente',
+        success: true,
+        user: { ...MOCK_USER, token },
+      });
+    });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 module.exports = router;

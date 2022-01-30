@@ -13,8 +13,14 @@ USER_STATISTICS_MOCK = {
   lose: 13
 }
 
+USER_SETTINGS_MOCK = {
+  language: 'es',
+  emailSuscription: true,
+}
+
 module.exports = {
   MOCK_USER,
   USER_CREDENTIALS_MOCK,
-  USER_STATISTICS_MOCK
+  USER_STATISTICS_MOCK,
+  USER_SETTINGS_MOCK
 }
