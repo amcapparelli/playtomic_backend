@@ -3,13 +3,15 @@ const router = express.Router();
 var jwt = require('jsonwebtoken');
 const { USER_CREDENTIALS_MOCK, MOCK_USER } = require('../mocks/user');
 
+const jwtSecret = 'playtomicsecretword'; //normally this wuld be on a .env file.
+
 router.post('/', async function (req, res) {
   try {
     const { email, password } = req.body;
     if (USER_CREDENTIALS_MOCK.email === email && USER_CREDENTIALS_MOCK.password === password) {
       jwt.sign(
         { user: MOCK_USER },
-        'lalocuranuncatuvomaestro',
+        jwtSecret,
         { expiresIn: '1d' },
         (err, token) => {
           if (err) {
@@ -33,7 +35,7 @@ router.post('/', async function (req, res) {
 router.get('/', function (req, res) {
   try {
     const { token } = req.query;
-    jwt.verify(token, 'lalocuranuncatuvomaestro', async function (err, tokenDecoded) {
+    jwt.verify(token, jwtSecret, async function (err, tokenDecoded) {
       if (err) {
         res.json({
           message: 'error recuperando la sesión del usuario',
